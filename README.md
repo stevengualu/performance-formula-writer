@@ -58,16 +58,3 @@ dsh plugin add github:stevengualu/performance-formula-writer
 
 安装完成点「立即启用」；左侧栏没出现图标就重启一次 DSH。不要手工改 profile 的
 `package.json` / `cordis.patch.yml`，交给插件管理器维护。
-
-## 发版
-
-维护者用 `scripts/release.sh`：
-
-```bash
-./scripts/release.sh init      # 首次：建仓、配 origin、推 main
-./scripts/release.sh 1.1.0     # 发版：改版本号、commit、打 tag、push、建 Release
-```
-
-凭据放在 `~/.dsh/github-token`（chmod 600），仓库配置在 `.release.env`（已 gitignore）。
-脚本会读取 macOS 系统代理，因为 git 本身不认系统代理设置。
-```
