@@ -19,6 +19,19 @@ fi
 : "${VISIBILITY:=public}"
 : "${SKIP_RELEASE:=0}"
 
+# git 不读 macOS 系统代理，只认环境变量；没有显式配置时从系统代理推导一次。
+if [[ -z "${HTTPS_PROXY:-}" && "$(uname -s)" == "Darwin" ]] && command -v scutil >/dev/null 2>&1; then
+  sp="$(scutil --proxy 2>/dev/null || true)"
+  if [[ "$(awk -F' : ' '/^ *HTTPSEnable/{print $2; exit}' <<<"$sp")" == "1" ]]; then
+    hp="$(awk -F' : ' '/^ *HTTPSProxy/{print $2; exit}' <<<"$sp")"
+    hport="$(awk -F' : ' '/^ *HTTPSPort/{print $2; exit}' <<<"$sp")"
+    if [[ -n "$hp" && -n "$hport" ]]; then
+      export HTTPS_PROXY="http://$hp:$hport" https_proxy="http://$hp:$hport"
+      export HTTP_PROXY="http://$hp:$hport" http_proxy="http://$hp:$hport"
+    fi
+  fi
+fi
+
 TOKEN="${GITHUB_TOKEN:-}"
 if [[ -z "$TOKEN" ]]; then
   for f in "${GITHUB_TOKEN_FILE:-$HOME/.dsh/github-token}" "$HOME/.dsh/github_token"; do

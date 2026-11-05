@@ -43,6 +43,31 @@
 
 ## 安装
 
+在 DSH 左侧栏 **插件 → 添加插件** 里粘贴仓库地址：
+
+```
+github:stevengualu/performance-formula-writer
+```
+
+要锁版本就加 tag：`github:stevengualu/performance-formula-writer#v1.0.0`。
+装有 `dsh` CLI 的话等价于：
+
 ```bash
-# 由 DSH 插件管理器安装本目录（不要手工改 profile 的 package.json / cordis.patch.yml）
+dsh plugin add github:stevengualu/performance-formula-writer
+```
+
+安装完成点「立即启用」；左侧栏没出现图标就重启一次 DSH。不要手工改 profile 的
+`package.json` / `cordis.patch.yml`，交给插件管理器维护。
+
+## 发版
+
+维护者用 `scripts/release.sh`：
+
+```bash
+./scripts/release.sh init      # 首次：建仓、配 origin、推 main
+./scripts/release.sh 1.1.0     # 发版：改版本号、commit、打 tag、push、建 Release
+```
+
+凭据放在 `~/.dsh/github-token`（chmod 600），仓库配置在 `.release.env`（已 gitignore）。
+脚本会读取 macOS 系统代理，因为 git 本身不认系统代理设置。
 ```
