@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Performance Formula Writer">
+  <rect x="4" y="4" width="56" height="56" rx="15" fill="#2f6feb"/>
+  <path d="M41 17H24l9 14-9 14h17" fill="none" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M45 25h5M45 32h5" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" opacity="0.75"/>
+</svg>
